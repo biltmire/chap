@@ -1,12 +1,20 @@
-<h1>Waiting for Players</h1>
-<script src="/static/js/websocket.js"></script>
-<script>
-  addInitListener('Client in queue')
-  socket.addEventListener('message', function (event) {
-    var msg = JSON.parse(event.data)
-      if(msg.message == 'gamestart') {
-        location.href = '/game'
-        console.log('got a hit')
-      }
-  });
-</script>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Waiting for Players</h1>
+    <script src="/static/js/websocket.js"></script>
+    <script>
+      socket.addEventListener('message', function (event) {
+        var msg = JSON.parse(event.data)
+          if(msg.message == 'gamestart') {
+            location.href = '/game'
+            console.log('got a hit')
+          }
+      });
+    </script>
+
+  </body>
+</html>

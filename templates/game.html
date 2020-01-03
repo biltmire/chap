@@ -14,12 +14,19 @@
   <div id="fen"></div>
   <label>PGN:</label>
   <div id="pgn"></div>
-  <script type="text/javascript">
-    var script = document.createElement('script');
-    script.src = "/static/js/game.js"
-    script.type = "module"
-    document.body.appendChild(script)
-  </script>
+  <script src="/static/js/game.js"></script>
+  <script>
+    var config = {
+      draggable: true,
+      position: 'start',
+      onDragStart: onDragStart,
+      onDrop: onDrop,
+      onSnapEnd: onSnapEnd
+    }
+    board = Chessboard('myBoard', config)
+    board.orientation({{.}})
+    updateStatus()
+</script>
 </body>
 <script type="text/javascript" src="/static/js/websocket.js"></script>
 <script>

@@ -61,19 +61,7 @@ function updateStatus () {
       status += ', ' + moveColor + ' is in check'
     }
   }
-
   $status.html(status)
   $fen.html(game.fen())
   $pgn.html(game.pgn())
 }
-
-var config = {
-  draggable: true,
-  position: 'start',
-  onDragStart: onDragStart,
-  onDrop: onDrop,
-  onSnapEnd: onSnapEnd
-}
-board = Chessboard('myBoard', config)
-
-updateStatus()

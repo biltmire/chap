@@ -7,19 +7,6 @@
 <body>
   <h1>Welcome to Chap!</h1>
   <p>Chess made simple</p>
-  <div id="myBoard" style="width: 400px"></div>
-  <label>Status:</label>
-  <div id="status"></div>
-  <label>FEN:</label>
-  <div id="fen"></div>
-  <label>PGN:</label>
-  <div id="pgn"></div>
-  <script type="text/javascript">
-    var script = document.createElement('script');
-    script.src = "/static/js/game.js"
-    script.type = "module"
-    document.body.appendChild(script)
-  </script>
   <button type="button" id="myButton">New Game</button>
   <script type="text/javascript">
     document.getElementById("myButton").onclick = function () {
