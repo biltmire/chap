@@ -63,8 +63,8 @@ func queueHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	} else {
 		host_queue = append(host_queue,r.Host)
-		queue_templ.Execute(w,nil)
 	}
+    queue_templ.Execute(w,nil)
 }
 
 //Does a lookup on the host and returns what color they are in the board if
