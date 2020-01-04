@@ -9,9 +9,8 @@
     <script>
       socket.addEventListener('message', function (event) {
         var msg = JSON.parse(event.data)
-          if(msg.message == 'gamestart') {
+          if(msg.flags == 'start') {
             location.href = '/game'
-            console.log('got a hit')
           }
       });
     </script>

@@ -15,6 +15,12 @@
   <label>PGN:</label>
   <div id="pgn"></div>
   <script src="/static/js/game.js"></script>
+  <button type="button" id="myButton">New Game</button>
+  <script type="text/javascript">
+    document.getElementById("myButton").onclick = function () {
+        location.href = "/queue";
+    };
+  </script>
   <script>
     var config = {
       draggable: true,
@@ -30,5 +36,13 @@
 </body>
 <script type="text/javascript" src="/static/js/websocket.js"></script>
 <script>
-  addInitListener('gamestart')
+  socket.addEventListener('message', function (event) {
+    var msg = JSON.parse(event.data)
+    var fen = msg['fen']
+    delete msg['fen']
+    game.move(msg)
+    board.position(fen,true)
+    updateStatus()
+  });
+  addInitListener('start')
 </script>

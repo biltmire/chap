@@ -5,12 +5,17 @@ var $fen = $('#fen')
 var $pgn = $('#pgn')
 
 function onDragStart (source, piece, position, orientation) {
+  var color = board.orientation()
   // do not pick up pieces if the game is over
   if (game.game_over()) return false
 
   // only pick up pieces for the side to move
   if ((game.turn() === 'w' && piece.search(/^b/) !== -1) ||
       (game.turn() === 'b' && piece.search(/^w/) !== -1)) {
+    return false
+  }
+  else if((color === 'white' && piece.search(/^b/) !== -1) ||
+          (color === 'black' && piece.search(/^w/) !== -1)) {
     return false
   }
 }
@@ -25,6 +30,10 @@ function onDrop (source, target) {
 
   // illegal move
   if (move === null) return 'snapback'
+  else {
+    move['fen'] = game.fen()
+    socket.send(JSON.stringify(move))
+  }
   updateStatus()
 }
 

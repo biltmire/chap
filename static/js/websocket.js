@@ -5,6 +5,6 @@ const socket = new WebSocket('ws://localhost:3000/ws');
 function addInitListener(msg){
   socket.addEventListener('open', function (event) {
     socket.send(
-      JSON.stringify({message: msg})
+      JSON.stringify({flags: msg})
     )});
 }

@@ -5,7 +5,13 @@ import (	"log"
 
 // Define our message object
 type Message struct {
-	Message  string `json:"message"`
+	Color string `json:"color"`
+  From string `json:"from"`
+  To string `json:"to"`
+  Flags string `json:"flags"`
+  Piece string `json:"piece"`
+  San string `json:"san"`
+  Fen string `json:"fen"`
 }
 
 var clients = make(map[*websocket.Conn]bool) // connected clients
