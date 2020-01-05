@@ -3,19 +3,13 @@ import (	"log"
           "github.com/gorilla/websocket"
           "net/http")
 
-// Define our message object
-type Message struct {
-	Color string `json:"color"`
-  From string `json:"from"`
-  To string `json:"to"`
-  Flags string `json:"flags"`
-  Piece string `json:"piece"`
-  San string `json:"san"`
-  Fen string `json:"fen"`
-}
-
 var clients = make(map[*websocket.Conn]bool) // connected clients
-var broadcast = make(chan Message) // broadcast channel
+var broadcast = make(chan QueueMessage) // broadcast channel
+
+type QueueMessage struct {
+    Flag string `json:"flag"`
+    Url string `json:"url"`
+}
 
 // Configure the upgrader
 var upgrader = websocket.Upgrader{
@@ -37,7 +31,7 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 	clients[ws] = true
 
 	for {
-		var msg Message
+		var msg QueueMessage
 		// Read in a new message as JSON and map it to a Message object
 		err := ws.ReadJSON(&msg)
 		if err != nil {

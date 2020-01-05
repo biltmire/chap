@@ -36,7 +36,11 @@
 </body>
 <script type="text/javascript" src="/static/js/websocket.js"></script>
 <script>
-  socket.addEventListener('message', function (event) {
+  var stem = window.location.href.split('/')[3]
+  id = stem.substring(8)
+  addInitListener("start",stem)
+  const gamesock = new WebSocket('ws://localhost:3000/gamesock?id='+id+'&color='+{{.}})
+  gamesock.addEventListener('message', function (event) {
     var msg = JSON.parse(event.data)
     var fen = msg['fen']
     delete msg['fen']
@@ -44,5 +48,5 @@
     board.position(fen,true)
     updateStatus()
   });
-  addInitListener('start')
+
 </script>

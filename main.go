@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"net/http"
 	"os"
+	"fmt"
 )
 
 //Package level template definition
@@ -11,9 +12,10 @@ var index_templ = template.Must(template.ParseFiles("templates/index.html"))
 var queue_templ = template.Must(template.ParseFiles("templates/queue.html"))
 var game_templ = template.Must(template.ParseFiles("templates/game.html"))
 
-//List of hosts
+//List of hosts waiting for game
 var host_queue []string
-var game_list []Game
+//var game_list []Game
+var game_list = make(map[string]*Game)
 
 //Writes the index template to the response writer
 func indexHandler(w http.ResponseWriter, r *http.Request) {
@@ -21,7 +23,8 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func gameHandler(w http.ResponseWriter, r *http.Request) {
-	game_templ.Execute(w,hostLookup(r.Host))
+	key := r.URL.Query()["id"]
+	game_templ.Execute(w,hostLookup(key[0],r.RemoteAddr))
 }
 
 //Handler for the queue which adds players to the queue until two eligible
@@ -30,18 +33,22 @@ func queueHandler(w http.ResponseWriter, r *http.Request) {
 	//Establish the websocket with the client
 	if len(host_queue) > 0 {
 		for host := range host_queue {
-			if(host_queue[host] != r.Host) {
-				gameManager(host_queue[host],r.Host)
-				host_queue = host_queue[1:]
-				http.Redirect(w,r,"/game", http.StatusFound)
+			//Found suitable opponent, start new game
+			if(host_queue[host] != r.RemoteAddr) {
+				id := gameManager(host_queue[host],r.RemoteAddr)
+				//Delete the host from the host_queue
+				host_queue = append(host_queue[:host],host_queue[host+1:]...)
+				http.Redirect(w,r,"/game?id="+id, http.StatusFound)
+				fmt.Println("Go routine spining up")
+				var p *Game = game_list[id]
+				go handleMoves(p)
 			}
 		}
 	} else {
-		host_queue = append(host_queue,r.Host)
+		host_queue = append(host_queue,r.RemoteAddr)
 	}
   queue_templ.Execute(w,nil)
 }
-
 func main() {
   //Check to see if the PORT env variable is avaialbe and if so set it
 	port := os.Getenv("PORT")
@@ -62,6 +69,7 @@ func main() {
 	mux.HandleFunc("/queue",queueHandler)
 	mux.HandleFunc("/game",gameHandler)
 	mux.HandleFunc("/ws",handleConnections)
+	mux.HandleFunc("/gamesock",gameConnections)
 	mux.HandleFunc("/", indexHandler)
 	http.ListenAndServe(":"+port, mux)
 }

@@ -32,7 +32,8 @@ function onDrop (source, target) {
   if (move === null) return 'snapback'
   else {
     move['fen'] = game.fen()
-    socket.send(JSON.stringify(move))
+    gamesock.send(JSON.stringify(move))
+    console.log('sent them move')
   }
   updateStatus()
 }
