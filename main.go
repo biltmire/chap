@@ -47,6 +47,7 @@ func queueHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		host_queue = append(host_queue,r.RemoteAddr)
 	}
+	fmt.Println(r.RemoteAddr)
   queue_templ.Execute(w,nil)
 }
 func main() {

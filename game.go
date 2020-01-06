@@ -19,8 +19,8 @@ func hostLookup(game_id string,host string) string{
 	return game_list[game_id].PlayerMap[host]
 }
 
-//Give two host names, create a player map dictionary and store it in a new
-//game object which is appended to game_list
+//Give two host names, create a new game object to store in game_list. Return
+//the id of the new game
 func gameManager(player_one string, player_two string) string{
 	generator := rand.New(rand.NewSource(time.Now().UnixNano()))
 	new_map := make(map[string]string)
@@ -37,6 +37,7 @@ func gameManager(player_one string, player_two string) string{
   empty_slice := [2]*websocket.Conn{nil,nil}
 	new_game := Game{new_map,empty_slice,make(chan Message)}
   game_list[id] = &new_game
+  fmt.Println(len(game_list))
   return id
 }
 

@@ -1,7 +1,8 @@
 package main
 import (	"log"
           "github.com/gorilla/websocket"
-          "net/http")
+          "net/http"
+          "fmt")
 
 
 //Struct that contains information on the game
@@ -21,9 +22,6 @@ type Message struct {
   San string `json:"san"`
   Fen string `json:"fen"`
 }
-
-//var clients = make(map[*websocket.Conn]bool) // connected clients
-//var broadcast = make(chan Message) // broadcast channel
 
 //Handle connections and the receiving of messagess
 func gameConnections(w http.ResponseWriter, r *http.Request) {
@@ -53,6 +51,8 @@ func gameConnections(w http.ResponseWriter, r *http.Request) {
 		err := ws.ReadJSON(&msg)
 		if err != nil {
 			log.Printf("error: %v", err)
+      fmt.Println(len(game_list))
+      delete(game_list,key[0])
 			delete(clients, ws)
 			break
 		}

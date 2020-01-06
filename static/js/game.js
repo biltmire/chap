@@ -33,7 +33,6 @@ function onDrop (source, target) {
   else {
     move['fen'] = game.fen()
     gamesock.send(JSON.stringify(move))
-    console.log('sent them move')
   }
   updateStatus()
 }

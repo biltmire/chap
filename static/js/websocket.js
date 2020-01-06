@@ -1,7 +1,7 @@
 // Create WebSocket connection.
-const socket = new WebSocket('ws://localhost:3000/ws');
-
-
+hostname = window.location.hostname
+console.log('ws://'+hostname+':3000/ws')
+const socket = new WebSocket('ws://'+hostname+':3000/ws');
 
 // Send redirect url to person in queue when opponent enters game
 function addInitListener(status,redirect){
