@@ -54,7 +54,7 @@ func main() {
   //Check to see if the PORT env variable is avaialbe and if so set it
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "3000"
+		port = "8080"
 	}
 
 	//Concurrently handle incoming messages from clients
