@@ -33,10 +33,10 @@ func gameManager(player_one string, player_two string) string{
 		new_map[player_two] = "white"
 	}
   id := String(9)
-  fmt.Println(id)
   empty_slice := [2]*websocket.Conn{nil,nil}
 	new_game := Game{new_map,empty_slice,make(chan Message)}
   game_list[id] = &new_game
+  fmt.Println(new_map)
   fmt.Println(len(game_list))
   return id
 }

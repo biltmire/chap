@@ -24,6 +24,8 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 
 func gameHandler(w http.ResponseWriter, r *http.Request) {
 	key := r.URL.Query()["id"]
+	fmt.Println(r.RemoteAddr)
+	fmt.Println(hostLookup(key[0],r.RemoteAddr))
 	game_templ.Execute(w,hostLookup(key[0],r.RemoteAddr))
 }
 
