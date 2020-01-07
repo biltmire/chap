@@ -29,6 +29,7 @@ func gameConnections(w http.ResponseWriter, r *http.Request) {
 	ws, err := upgrader.Upgrade(w, r, nil)
   q := r.URL.Query()
   color := q["color"]
+  fmt.Println(color)
   key := q["id"]
   p := game_list[key[0]]
   if(color[0] == "white") {

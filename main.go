@@ -24,34 +24,42 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 
 func gameHandler(w http.ResponseWriter, r *http.Request) {
 	key := r.URL.Query()["id"]
-	fmt.Println(r.RemoteAddr)
-	fmt.Println(hostLookup(key[0],r.RemoteAddr))
-	game_templ.Execute(w,hostLookup(key[0],r.RemoteAddr))
+	player := r.URL.Query()["player"]
+	game_templ.Execute(w,hostLookup(key[0],player[0]))
 }
 
 //Handler for the queue which adds players to the queue until two eligible
 //players are found and then removes them from the queue
 func queueHandler(w http.ResponseWriter, r *http.Request) {
-	//Establish the websocket with the client
+	//Get name of player
+	player_name := getPlayerName(r)
 	if len(host_queue) > 0 {
 		for host := range host_queue {
 			//Found suitable opponent, start new game
-			if(host_queue[host] != r.RemoteAddr) {
-				id := gameManager(host_queue[host],r.RemoteAddr)
+			if(host_queue[host] != player_name) {
+				id := gameManager(host_queue[host],player_name)
 				//Delete the host from the host_queue
 				host_queue = append(host_queue[:host],host_queue[host+1:]...)
-				http.Redirect(w,r,"/game?id="+id, http.StatusFound)
+				http.Redirect(w,r,"/game?id="+id+"&player="+player_name, http.StatusFound)
 				fmt.Println("Go routine spining up")
 				var p *Game = game_list[id]
 				go handleMoves(p)
 			}
 		}
 	} else {
-		host_queue = append(host_queue,r.RemoteAddr)
+		host_queue = append(host_queue,player_name)
 	}
 	fmt.Println(r.RemoteAddr)
   queue_templ.Execute(w,nil)
 }
+
+//Returns name of player
+func getPlayerName(r *http.Request) string {
+	q := r.URL.Query()
+	playerName := q["player"]
+	return playerName[0]
+}
+
 func main() {
   //Check to see if the PORT env variable is avaialbe and if so set it
 	port := os.Getenv("PORT")

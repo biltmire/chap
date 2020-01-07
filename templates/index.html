@@ -2,9 +2,10 @@
   <h1>Welcome to Chap!</h1>
   <p>Chess made simple</p>
   <button type="button" id="myButton">New Game</button>
+  <input type="text" id="myText" value="">
   <script type="text/javascript">
     document.getElementById("myButton").onclick = function () {
-        location.href = "/queue";
+        location.href = "/queue?player="+document.getElementById("myText").value;
     };
 </script>
 </body>

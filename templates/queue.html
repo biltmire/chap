@@ -10,7 +10,9 @@
       socket.addEventListener('message', function (event) {
         var msg = JSON.parse(event.data)
           if(msg.flag == 'start') {
-            location.href = msg.url
+            //Redirect the person in queue to a game with current player param
+            parser = new URL(window.location.href)
+            location.href = msg.url + "&player="+parser.searchParams.get("player")
           }
       });
     </script>

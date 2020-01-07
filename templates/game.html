@@ -18,7 +18,8 @@
   <button type="button" id="myButton">New Game</button>
   <script type="text/javascript">
     document.getElementById("myButton").onclick = function () {
-        location.href = "/queue";
+        parser = new URL(window.location.href)
+        location.href = "/queue?player="+parser.searchParams.get("player");
     };
   </script>
   <script>
@@ -38,8 +39,8 @@
 <script>
   var stem = window.location.href.split('/')[3]
   host = window.location.hostname
-  id = stem.substring(8)
-  addInitListener("start",stem)
+  id = stem.substring(8,17)
+  addInitListener("start",stem.substring(0,17))
   const gamesock = new WebSocket('wss://'+host+'/gamesock?id='+id+'&color='+{{.}})
   gamesock.addEventListener('message', function (event) {
     var msg = JSON.parse(event.data)
