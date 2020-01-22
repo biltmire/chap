@@ -14,7 +14,6 @@
   <div id="fen"></div>
   <label>PGN:</label>
   <div id="pgn"></div>
-  <script src="/static/js/game.js"></script>
   <button type="button" id="myButton">New Game</button>
   <script type="text/javascript">
     document.getElementById("myButton").onclick = function () {
@@ -22,6 +21,7 @@
         location.href = "/queue?player="+parser.searchParams.get("player");
     };
   </script>
+  <script src="/static/js/game.js"></script>
   <script>
     var config = {
       draggable: true,
@@ -35,20 +35,9 @@
     updateStatus()
 </script>
 </body>
-<script type="text/javascript" src="/static/js/websocket.js"></script>
+<script src="/static/js/websocket.js"></script>
 <script>
-  var stem = window.location.href.split('/')[3]
-  host = window.location.hostname
-  id = stem.substring(8,17)
+  stem = window.location.href.split('/')[3]
   addInitListener("start",stem.substring(0,17))
-  const gamesock = new WebSocket('ws://'+host+':8080/gamesock?id='+id+'&color='+{{.}})
-  gamesock.addEventListener('message', function (event) {
-    var msg = JSON.parse(event.data)
-    var fen = msg['fen']
-    delete msg['fen']
-    game.move(msg)
-    board.position(fen,true)
-    updateStatus()
-  });
-
+  addGameListener({{.}})
 </script>

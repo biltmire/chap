@@ -29,13 +29,12 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 	defer ws.Close()
 	// Register our new client
 	clients[ws] = true
-
 	for {
 		var msg QueueMessage
 		// Read in a new message as JSON and map it to a Message object
 		err := ws.ReadJSON(&msg)
 		if err != nil {
-			log.Printf("error: %v", err)
+			log.Printf("handleConnections error: %v from client %s", err,r.Host)
 			delete(clients, ws)
 			break
 		}
@@ -53,7 +52,7 @@ func handleMessages() {
 		for client := range clients {
 			err := client.WriteJSON(msg)
 			if err != nil {
-				log.Printf("error: %v", err)
+				log.Printf("handleMessages error: %v", err)
 				client.Close()
 				delete(clients, client)
 			}

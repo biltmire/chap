@@ -8,14 +8,8 @@
     <h1>Waiting for Players</h1>
     <script src="/static/js/websocket.js"></script>
     <script>
-      socket.addEventListener('message', function (event) {
-        var msg = JSON.parse(event.data)
-          if(msg.flag == 'start') {
-            //Redirect the person in queue to a game with current player param
-            parser = new URL(window.location.href)
-            location.href = msg.url + "&player="+parser.searchParams.get("player")
-          }
-      });
+      //Get player name from url and use in socket listener to redirect to game
+      addQueueListener()
     </script>
   </body>
 </html>

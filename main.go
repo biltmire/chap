@@ -4,7 +4,6 @@ import (
 	"html/template"
 	"net/http"
 	"os"
-	"fmt"
 )
 
 //Package level template definition
@@ -40,17 +39,17 @@ func queueHandler(w http.ResponseWriter, r *http.Request) {
 				id := gameManager(host_queue[host],player_name)
 				//Delete the host from the host_queue
 				host_queue = append(host_queue[:host],host_queue[host+1:]...)
+				//Redirect the first player in the game to the correct game
 				http.Redirect(w,r,"/game?id="+id+"&player="+player_name, http.StatusFound)
-				fmt.Println("Go routine spining up")
-				var p *Game = game_list[id]
-				go handleMoves(p)
+				//Spin up go routine for handling sending of game messages
+				game_pointer := game_list[id]
+				go handleMoves(game_pointer)
 			}
 		}
 	} else {
 		host_queue = append(host_queue,player_name)
+		queue_templ.Execute(w,nil)
 	}
-	fmt.Println(r.RemoteAddr)
-  queue_templ.Execute(w,nil)
 }
 
 //Returns name of player
@@ -79,8 +78,9 @@ func main() {
 	//Route the mux from requests to handlers
 	mux.HandleFunc("/queue",queueHandler)
 	mux.HandleFunc("/game",gameHandler)
+	mux.HandleFunc("/", indexHandler)
+	//These are the handlers used for handling the creation of sockets
 	mux.HandleFunc("/ws",handleConnections)
 	mux.HandleFunc("/gamesock",gameConnections)
-	mux.HandleFunc("/", indexHandler)
 	http.ListenAndServe(":"+port, mux)
 }
