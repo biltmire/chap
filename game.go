@@ -2,7 +2,6 @@ package main
 
 import ("time"
         "math/rand"
-        "fmt"
         "github.com/gorilla/websocket")
 
 //Charset for generating random strings
@@ -36,8 +35,6 @@ func gameManager(player_one string, player_two string) string{
   empty_slice := [2]*websocket.Conn{nil,nil}
 	new_game := Game{new_map,empty_slice,make(chan Message)}
   game_list[id] = &new_game
-  fmt.Println(new_map)
-  fmt.Println(len(game_list))
   return id
 }
 

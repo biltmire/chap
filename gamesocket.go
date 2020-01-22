@@ -1,8 +1,7 @@
 package main
 import (	"log"
           "github.com/gorilla/websocket"
-          "net/http"
-          "fmt")
+          "net/http")
 
 
 //Struct that contains information on the game
@@ -29,7 +28,6 @@ func gameConnections(w http.ResponseWriter, r *http.Request) {
 	ws, err := upgrader.Upgrade(w, r, nil)
   q := r.URL.Query()
   color := q["color"]
-  fmt.Println(color)
   key := q["id"]
   p := game_list[key[0]]
   if(color[0] == "white") {
@@ -51,8 +49,7 @@ func gameConnections(w http.ResponseWriter, r *http.Request) {
 		// Read in a new message as JSON and map it to a Message object
 		err := ws.ReadJSON(&msg)
 		if err != nil {
-			log.Printf("error: %v", err)
-      fmt.Println(len(game_list))
+			log.Printf("gameConnections error: %v", err)
       delete(game_list,key[0])
 			delete(clients, ws)
 			break
