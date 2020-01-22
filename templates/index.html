@@ -1,11 +1,17 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="/static/css/chessboard-1.0.0.css">
+</head>
 <body>
-  <h1>Welcome to Chap!</h1>
-  <p>Chess made simple</p>
-  <button type="button" id="myButton">New Game</button>
-  <input type="text" id="myText" value="">
+  <h1>WELCOME TO CHAPP!</h1>
+  <p>CHESS MADE SIMPLE</p>
+  <div class="wrapper">
+  <button class="myButton" id="myButton">New Game</button>
+  <input type="text" placeholder ="Enter a UserName" id="myText" value="">
+  
   <script type="text/javascript">
     document.getElementById("myButton").onclick = function () {
         location.href = "/queue?player="+document.getElementById("myText").value;
     };
 </script>
+</div>
 </body>

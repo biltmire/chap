@@ -1,5 +1,30 @@
 /*! chessboard.js v1.0.0 | (c) 2019 Chris Oakman | MIT License chessboardjs.com/license */
+/*! Modified Matthew Byra for Chapp Front-End */
+body {
+  background-color: #101010;
+  }
+h1 {
+  font: bold 30px arial, sans-serif;
+  color:  #F5F5F5;
+  text-align: center;
 
+}
+p {
+  font: 20px arial, sans-serif;
+  color:  #F5F5F5;
+  text-align: center;
+}
+.myButton {
+  position: center;
+}
+.wrapper {
+  text-align: center;
+}
+
+.button {
+  position: center;
+  top: 50%;
+}
 .clearfix-7da63 {
   clear: both;
 }
@@ -7,6 +32,7 @@
 .board-b72b1 {
   border: 2px solid #404040;
   box-sizing: content-box;
+  position: relative;
 }
 
 .square-55d63 {
