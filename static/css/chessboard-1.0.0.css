@@ -1,21 +1,46 @@
 /*! chessboard.js v1.0.0 | (c) 2019 Chris Oakman | MIT License chessboardjs.com/license */
 /*! Modified Matthew Byra for Chapp Front-End */
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 body {
-  background-color: #101010;
+  height: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-repeat:no-repeat;
+  background: rgb(0,0,0);
+  background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 11%, rgba(20,20,20,1));
   }
 h1 {
-  font: bold 30px arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bolder;
+  font-size: 30px;
   color:  #F5F5F5;
   text-align: center;
 
 }
 p {
-  font: 20px arial, sans-serif;
+  font-family:'Roboto', sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  font-style: oblique;
   color:  #F5F5F5;
   text-align: center;
 }
 .myButton {
   position: center;
+  background-color: rgba(20,20,20,1);
+  border-radius: 3px;
+  border: none;
+  color: #F5F5F5;
+  padding: 12px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-family:'Roboto', sans-serif;
+  font-weight: bold;
+  display: inline-block;
+  font-size: 18px;
+  cursor: pointer;
 }
 .wrapper {
   text-align: center;
@@ -23,7 +48,16 @@ p {
 
 .button {
   position: center;
-  top: 50%;
+  background-color: wheat;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
 .clearfix-7da63 {
   clear: both;
