@@ -2,16 +2,14 @@
   <link rel="stylesheet" type="text/css" href="/static/css/chessboard-1.0.0.css">
 </head>
 <body>
-  <h1>WELCOME TO CHAPP!</h1>
-  <p>CHESS MADE SIMPLE</p>
-  <div class="wrapper">
-  <button class="myButton" id="myButton">New Game</button>
-  <input type="text" placeholder ="Enter a Username" id="myText" value="">
-  
-  <script type="text/javascript">
-    document.getElementById("myButton").onclick = function () {
-        location.href = "/queue?player="+document.getElementById("myText").value;
-    };
-</script>
-</div>
+  <h1>WELCOME TO CHAPP</h1>
+  <p>CHESS MADE SIMPLE!</p>
+  <script src="/static/js/loadWait.js" type="text/javascript"></script>
+      <div class="wrapper">
+      <button class="myButton" id="myButton" onclick="waitPage();">New Game</button>
+  <script src="/static/js/3Djs/three.min.js"></script>
+  <script src="/static/js/3Djs/OBJLoader.js"></script>
+  <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+  <script src="/static/js/3Djs/modelLoad.js" type="text/javascript"></script>
+  </div>
 </body>

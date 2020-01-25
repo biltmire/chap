@@ -10,6 +10,8 @@ body {
   background-repeat:no-repeat;
   background: rgb(0,0,0);
   background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 11%, rgba(20,20,20,1));
+  overflow: hidden;
+  margin: 0;
   }
 h1 {
   font-family: 'Roboto', sans-serif;
@@ -26,6 +28,9 @@ p {
   font-style: oblique;
   color:  #F5F5F5;
   text-align: center;
+}
+.ui {
+  position: absolute;
 }
 .myButton {
   position: center;
@@ -83,12 +88,12 @@ p {
 }
 
 .white-1e1d7 {
-  background-color: #f0d9b5;
+  background-color: #ffffff;
   color: #b58863;
 }
 
 .black-3c85d {
-  background-color: #b58863;
+  background-color: #153053;
   color: #f0d9b5;
 }
 
