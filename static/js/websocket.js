@@ -45,13 +45,13 @@ function createGameSocket(color){
   stem = window.location.href.split('/')[3]
   host = window.location.hostname
   id = stem.substring(8,17)
-  const gamesock = new WebSocket('ws://'+host+':8080/gamesock?id='+id+'&color='+color)
+  const gamesock = new WebSocket('wss://'+host+'/gamesock?id='+id+'&color='+color)
   return gamesock
 }
 
 //Create the socket connection for the queue
 function createQueueSocket(){
   hostname = window.location.hostname
-  const socket = new WebSocket('ws://'+hostname+':8080/ws');
+  const socket = new WebSocket('wss://'+hostname+'/ws');
   return socket
 }
