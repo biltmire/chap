@@ -76,6 +76,7 @@ func handleMoves(game_obj *Game) {
       log.Println("error: %v", err)
       client.Close()
       delete(clients, client)
+      return 
     }
 	}
 }

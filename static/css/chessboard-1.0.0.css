@@ -12,6 +12,9 @@ body {
   background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 11%, rgba(20,20,20,1));
   overflow: hidden;
   margin: 0;
+  display: flex;
+  flex-direction:column;
+  align-items:center;
   }
 h1 {
   font-family: 'Roboto', sans-serif;
@@ -28,6 +31,17 @@ p {
   font-style: oblique;
   color:  #F5F5F5;
   text-align: center;
+}
+
+label {
+  color: #F5F5F5
+}
+
+div#status {
+  color: #F5F5F5
+}
+div#pgn {
+  color: #F5F5F5
 }
 .ui {
   position: absolute;
@@ -71,7 +85,6 @@ p {
 .board-b72b1 {
   border: 2px solid #404040;
   box-sizing: content-box;
-  position: relative;
 }
 
 .square-55d63 {
@@ -88,12 +101,12 @@ p {
 }
 
 .white-1e1d7 {
-  background-color: #ffffff;
+  background-color: #f0d9b5;
   color: #b58863;
 }
 
 .black-3c85d {
-  background-color: #153053;
+  background-color: #b58863;
   color: #f0d9b5;
 }
 
