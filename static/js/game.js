@@ -31,6 +31,7 @@ function onDrop (source, target) {
   if (move === null) return 'snapback'
   else {
     move['fen'] = game.fen()
+    //Send move to the other player
     gamesock.send(JSON.stringify(move))
   }
   updateStatus()

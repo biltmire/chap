@@ -1,4 +1,5 @@
 
+var timerId = 0;
 
 // Send redirect url to person in queue when opponent enters game
 function addInitListener(status,redirect){
@@ -12,16 +13,44 @@ function addInitListener(status,redirect){
 
 //Create and add the GameListener which makes moves in the game when message is
 //received
-function addGameListener(color){
+function addGameListener(color){)
   gamesock = createGameSocket(color)
+  setTimeout(keepAlive(),10000)
+
   gamesock.addEventListener('message', function (event) {
     var msg = JSON.parse(event.data)
-    var fen = msg['fen']
-    delete msg['fen']
-    game.move(msg)
-    board.position(fen,true)
-    updateStatus()
+    if(msg['flags'] != "keepAlive"){
+      var fen = msg['fen']
+      delete msg['fen']
+      game.move(msg)
+      board.position(fen,true)
+      updateStatus()
+    }
+    else {
+      console.log('keep alive')
+    }
   });
+
+  gamesock.onclose = function(event) {
+    cancelKeepAlive();
+  }
+}
+
+//Keep websocket alive given a timer
+function keepAlive() {
+    var timeout = 40000;
+    if (gamesock.readyState == gamesock.OPEN) {
+        var message = { 'color': "", 'from': "", 'to': "", 'flags': "keepAlive", 'piece': "p", 'san': "e4", 'fen': "" }
+        gamesock.send(JSON.stringify(message));
+    }
+    timerId = setTimeout(keepAlive, timeout);
+}
+
+//Kill websocket
+function cancelKeepAlive() {
+    if (timerId) {
+        clearTimeout(timerId);
+    }
 }
 
 //Create and add the message listener for the queue
