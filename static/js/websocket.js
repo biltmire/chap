@@ -13,7 +13,7 @@ function addInitListener(status,redirect){
 
 //Create and add the GameListener which makes moves in the game when message is
 //received
-function addGameListener(color){)
+function addGameListener(color){
   gamesock = createGameSocket(color)
   setTimeout(keepAlive(),10000)
 
@@ -38,7 +38,7 @@ function addGameListener(color){)
 
 //Keep websocket alive given a timer
 function keepAlive() {
-    var timeout = 40000;
+    var timeout = 30000;
     if (gamesock.readyState == gamesock.OPEN) {
         var message = { 'color': "", 'from': "", 'to': "", 'flags': "keepAlive", 'piece': "p", 'san': "e4", 'fen': "" }
         gamesock.send(JSON.stringify(message));
@@ -74,13 +74,13 @@ function createGameSocket(color){
   stem = window.location.href.split('/')[3]
   host = window.location.hostname
   id = stem.substring(8,17)
-  const gamesock = new WebSocket('wss://'+host+'/gamesock?id='+id+'&color='+color)
+  const gamesock = new WebSocket('ws://'+host+':8080/gamesock?id='+id+'&color='+color)
   return gamesock
 }
 
 //Create the socket connection for the queue
 function createQueueSocket(){
   hostname = window.location.hostname
-  const socket = new WebSocket('wss://'+hostname+'/ws');
+  const socket = new WebSocket('ws://'+hostname+':8080/ws');
   return socket
 }
